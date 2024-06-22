@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import Imagen1 from "../assets/Logo1.png";
 import { fetchUsers } from "./ejercicios/api";
@@ -10,6 +10,7 @@ function Login() {
   const [notis, setUsers] = useState([]);
   const [usuario, setUsuario] = useState([]);
   const cookies = new Cookies();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers().then((data) => {
@@ -23,15 +24,15 @@ function Login() {
     for (let index = 0; index < notis.length; index++) {
       const element = notis[index];
       if (
-        e.target.email.value == element.gmail &&
-        e.target.password.value == element.contrasena
+        e.target.email.value === element.gmail &&
+        e.target.password.value === element.contrasena
       ) {
         console.log("datos correctos!");
         validacion = true;
         setUsuario(element);
       }
     }
-    if (validacion == true && usuario.estado == "activo") {
+    if (validacion === true && usuario.estado === "activo") {
       console.log(usuario);
       cookies.set("contrasena", usuario.contrasena, { path: "/" });
       cookies.set("desde", usuario.desde, { path: "/" });
@@ -45,9 +46,9 @@ function Login() {
       cookies.set("rol", usuario.rol, { path: "/" });
       cookies.set("rutinas", usuario.rutinas, { path: "/" });
       cookies.set("sexo", usuario.sexo, { path: "/" });
-      window.location.replace("/home");
+      navigate("/home");
     }
-    if (validacion == true && usuario.estado == "inactivo") {
+    if (validacion === true && usuario.estado === "inactivo") {
       alert("Verifique su membresia en caja");
     }
   };
@@ -74,9 +75,9 @@ function Login() {
             <input type="email" placeholder="Email" name="email" />
             <div className="line"></div>
             <input type="password" placeholder="Contraseña" name="password" />
-            <button className="login-button"><Link to="/home" className="access">
+            <button type="submit" className="login-button">
               Acceso
-            </Link></button>
+            </button>
           </form>
           <br />
         </div>
