@@ -74,7 +74,9 @@ function Login() {
             <input type="email" placeholder="Email" name="email" />
             <div className="line"></div>
             <input type="password" placeholder="Contraseña" name="password" />
-            <button className="login-button">Acceso</button>
+            <button className="login-button"><Link to="/home" className="access">
+              Acceso
+            </Link></button>
           </form>
           <br />
         </div>
